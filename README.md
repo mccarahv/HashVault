@@ -27,6 +27,23 @@ Creating clear and structured documentation for each file in your project, along
 
 ---
 
+## Prerequisites
+Before you begin, you will need to set up the following:
+
+1. **Infura Account:**
+   - Sign up at [Infura.io](https://infura.io/) and create a new project to get an API key. This key will allow you to connect to Ethereum networks without running a full node.
+   - Note your project ID, as you will need to include this in your application configuration.
+
+2. **Etherscan API Key:**
+   - Register at [Etherscan.io](https://etherscan.io/) and generate an API key. This key is used to query transaction details and other blockchain data.
+   - You will need this key to verify transaction statuses and retrieve timestamps.
+
+3. **Ethereum Wallet:**
+   - Generate an Ethereum wallet address and private key. You can use tools like [MyEtherWallet](https://www.myetherwallet.com/) or [MetaMask](https://metamask.io/).
+   - Ensure your wallet has some Ethereum for deploying contracts and making transactions. For testnet deployment, you can get free Ether from a faucet.
+
+---
+
 ## Project Structure
 
 This section outlines the purpose of each file in the HashVault project and provides a guide on how to deploy your own version of the system.
@@ -107,3 +124,76 @@ This section outlines the purpose of each file in the HashVault project and prov
 - Use the application to hash and store a file's hash on the blockchain. Verify that transactions are successfully recorded and retrievable.
 
 ---
+
+
+---
+
+
+
+## Installation and Configuration
+
+1. **Clone the Repository:**
+   ```bash
+   git clone <repository-url>
+   ```
+2.    **Step 2: Install Node.js and Truffle**
+- Ensure Node.js is installed on your machine. [Download Node.js](https://nodejs.org/)
+- Install Truffle globally using npm:
+  ```bash
+  npm install -g truffle
+  ```
+
+3. **Install Dependencies:**
+   Navigate to the project directory and install dependencies:
+   ```bash
+   cd HashVault
+   npm install
+   ```
+
+4. **Configure the Truffle Framework:**
+   Update `truffle-config.js` with the Infura endpoint and your wallet information. Here is an example configuration for the Sepolia testnet:
+   ```javascript
+   const HDWalletProvider = require('@truffle/hdwallet-provider');
+   const infuraKey = 'YOUR_INFURA_API_KEY';
+
+   module.exports = {
+     networks: {
+       sepolia: {
+         provider: () => new HDWalletProvider('YOUR_PRIVATE_KEY', `https://sepolia.infura.io/v3/${infuraKey}`),
+         network_id: 11155111, // Sepolia's network id
+         gas: 5500000, // Gas limit
+         confirmations: 2,
+         timeoutBlocks: 200,
+         skipDryRun: true
+       },
+     },
+     compilers: {
+       solc: {
+         version: "^0.8.0",
+       }
+     }
+   };
+   ```
+
+5. **Compile and Deploy Smart Contracts:**
+   Compile your smart contracts to check for errors and prepare them for deployment:
+   ```bash
+   truffle compile
+   truffle migrate --network sepolia
+   ```
+   After deployment, note the contract address output by Truffle. This is required for the Python application to interact with the smart contract. Paste this contract in the `HashVault_Widget.py` contract address at line 242.
+
+6. **Configure the Python Application:**
+   Open `HashVault_Widget.py` and update the configuration lines to include your Infura API key, Etherscan API key, Ethereum wallet address, private key, and the newly deployed contract address. Look for the following lines:
+   ```python
+   infura_api_key = "###" (Line 238)
+   contract_address = "###" (Line 242)
+   from_address = "###" (Line 247)
+   private_key = "####" (Line 248)
+   ```
+
+7. **Run the Application:**
+   With all configurations set, you can now run the application:
+   ```bash
+   python HashVault_Widget.py
+   ```
