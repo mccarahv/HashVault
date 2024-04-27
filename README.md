@@ -23,10 +23,6 @@ HashVault's modular design allows for future enhancements such as support for ad
 
 ---
 
-Creating clear and structured documentation for each file in your project, along with step-by-step deployment instructions, is essential for enabling users to understand and effectively utilize your software. Here's a template you can adapt to fit the specific files and structure of your HashVault project:
-
----
-
 ## Prerequisites
 Before you begin, you will need to set up the following:
 
