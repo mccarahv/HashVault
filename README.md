@@ -126,10 +126,6 @@ This section outlines the purpose of each file in the HashVault project and prov
 ---
 
 
----
-
-
-
 ## Installation and Configuration
 
 1. **Clone the Repository:**
