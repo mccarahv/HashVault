@@ -142,5 +142,5 @@ This section outlines the purpose of each file in the HashVault project and prov
 7. **Run the Application:**
    With all configurations set, you can now run the application:
    ```bash
-   python HashVault_Widget.py
+   python3 HashVault_Widget.py
    ```
